@@ -1,0 +1,317 @@
+<!--    Project : CRX Blueprint
+        Developer : Vaishnav Raj
+        Date : 4 April 2026
+    -->
+<!--
+        File: popup.html
+        Purpose: The primary user interface for the extension.
+        Role: Handles the "View Source", "Download ZIP", and "Convert" actions.
+        Why needed: Provides the quick-access menu when the extension icon is clicked.
+    -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CRX Blueprint - Extension Extractor</title>
+
+    <style>
+        :root {
+            --win-bg: #202020;
+            --win-surface: rgba(255, 255, 255, 0.04);
+            --win-surface-hover: rgba(255, 255, 255, 0.07);
+            --win-surface-active: rgba(255, 255, 255, 0.03);
+            --win-border: rgba(255, 255, 255, 0.06);
+            --win-border-top: rgba(255, 255, 255, 0.1);
+            --win-text: #f0f0f0;
+            --win-subtext: #a0a0a0;
+            --win-accent: #60cdff;
+            --win-accent-hover: #53b8e7;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            width: 280px;
+            background: var(--win-bg);
+            color: var(--win-text);
+            font-family: "Segoe UI Variable", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 12.5px;
+            display: flex;
+            flex-direction: column;
+            user-select: none;
+            overflow: hidden;
+        }
+
+        .titlebar {
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-left: 12px;
+            padding-right: 4px;
+            -webkit-app-region: drag;
+        }
+
+        .title-text {
+            display: flex;
+            align-items: center;
+            font-size: 11.5px;
+            color: var(--win-subtext);
+            gap: 8px;
+        }
+
+        .title-text img {
+            width: 14px;
+            height: 14px;
+            border-radius: 2px;
+        }
+
+        .window-controls {
+            display: flex;
+            height: 22px;
+            gap: 2px;
+            -webkit-app-region: no-drag;
+        }
+
+        .win-btn {
+            width: 34px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background 0.1s;
+            color: var(--win-text);
+        }
+
+        .win-btn svg {
+            width: 10px;
+            height: 10px;
+        }
+
+        .win-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .win-btn.close:hover {
+            background: #e81123;
+            color: white;
+        }
+
+        .win-content {
+            padding: 4px 12px 12px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 6px 12px;
+            font-size: 12.5px;
+            color: var(--win-text);
+            background: var(--win-surface);
+            border: 1px solid var(--win-border);
+            border-top: 1px solid var(--win-border-top);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.1s;
+            box-sizing: border-box;
+            text-align: left;
+        }
+
+        .btn:hover {
+            background: var(--win-surface-hover);
+        }
+
+        .btn:active {
+            background: var(--win-surface-active);
+            border-top: 1px solid var(--win-border);
+            color: var(--win-subtext);
+        }
+
+        .btn.primary {
+            background: var(--win-accent);
+            color: #000;
+            border: 1px solid transparent;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .btn.primary:hover {
+            background: var(--win-accent-hover);
+        }
+
+        .btn.primary:active {
+            background: #4caad7;
+            color: rgba(0, 0, 0, 0.7);
+            border: 1px solid transparent;
+        }
+
+        .btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .status-container {
+            margin-top: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 3px;
+            background: var(--win-surface);
+            border-radius: 2px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--win-accent);
+            transition: width 0.2s ease;
+        }
+
+        .bottom-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-text {
+            font-size: 11px;
+            color: var(--win-subtext);
+        }
+
+        .github-link {
+            font-size: 11px;
+            color: var(--win-subtext);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.1s;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .github-link:hover {
+            color: var(--win-accent);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .github-link svg {
+            width: 11px;
+            height: 11px;
+            fill: currentColor;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="titlebar">
+        <div class="title-text">
+            <img src="../icons/icon.png"> CRX Blueprint
+        </div>
+        <div class="window-controls">
+            <div class="win-btn close" id="btnClose">
+                <svg viewBox="0 0 10 10">
+                    <path d="M1,1 L9,9 M1,9 L9,1" stroke="currentColor" stroke-width="1.2" />
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="win-content" id="winContent">
+        <button class="btn primary" id="actView">
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+            </svg>
+            View Source Code
+        </button>
+
+        <button class="btn" id="actZip">
+            <svg viewBox="0 0 24 24">
+                <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+            </svg>
+            Download as ZIP
+        </button>
+
+        <button class="btn" id="actCrx">
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z" />
+            </svg>
+            Download as CRX
+        </button>
+
+        <label class="btn" for="fileCrxToZip">
+            <svg viewBox="0 0 24 24">
+                <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z" />
+            </svg>
+            Convert Local CRX to ZIP
+        </label>
+
+
+
+        <!-- ⚠️⚠️⚠️ Not working Properly - It do ZIP to CRX -->
+
+        <!-- <label class="btn" for="fileZipToCrx">
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M12 2L4 5v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V5l-8-3zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-2.62v9.31z" />
+            </svg>
+            Convert Local ZIP to CRX
+        </label> -->
+
+        <div class="status-container">
+            <div class="progress-bar-container" id="pWrap">
+                <div class="progress-bar" id="pBar"></div>
+            </div>
+
+            <div class="bottom-footer">
+                <div class="status-text" id="statusText"></div>
+                <div style="display:flex; gap:10px; align-items:center;">
+
+                    <!-- ❌❌ Privacy Policy Not Needed in Popup-->
+                    <!-- <a href="../legal/privacy.html" target="_blank" class="github-link" style="padding: 2px 8px; font-size: 10px;">
+                        Privacy & Terms
+                    </a> -->
+                    <a href="https://github.com/ivaishnavraj" target="_blank" class="github-link">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                        @ivaishnavraj
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input type="file" id="fileCrxToZip" accept=".crx">
+    <input type="file" id="fileZipToCrx" accept=".zip">
+
+    <!-- Local Scripts -->
+    <!-- popup.js: Handles UI logic and communication between the popup and the background script -->
+    <script src="popup.js"></script>
+</body>
+
+</html>
