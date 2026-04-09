@@ -61,3 +61,6 @@ CRX Blueprint is built for security researchers and developers with a **Zero-Per
 
 > *The developer's lens for the Chrome Web Store.*
 
+ <p align="right">
+  <a href="https://buymeacoffee.com/ivaishnavraj"><img src="https://github.com/ivaishnavraj/CRX-Blueprint/blob/main/GithubReadMeFiles/buymeacoffee.png"  target="_blank" alt="Buy Me A Coffee" height="32" /></a>
+ </p>
