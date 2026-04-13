@@ -1,6 +1,6 @@
 {
   "name": "CRX Blueprint",
-  "version": "1.0",
+  "version": "1.0.1",
   "manifest_version": 3,
   "description": "Seamlessly extract Extension packages to ZIP/CRX.",
   "author": "Vaishnav Raj",
