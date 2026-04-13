@@ -491,7 +491,7 @@ const init = async () => {
     rootDetails.appendChild(rootContainer);
     uiSidebar.appendChild(rootDetails);
 
-    let logoHtml = `<img src="../icons/icon.png" style="width:110px;height:110px;margin-bottom:30px;opacity:0.9;filter: drop-shadow(0 4px 20px rgba(0,0,0,0.5));">`;
+    let logoHtml = `<img src="../icons/icon128.png" style="width:110px;height:110px;margin-bottom:30px;opacity:0.9;filter: drop-shadow(0 4px 20px rgba(0,0,0,0.5));">`;
 
     if (extIconUrl) {
       logoHtml = `<img src="${extIconUrl}" style="width:120px;height:120px;object-fit:contain;margin-bottom:25px;filter: drop-shadow(0 15px 35px rgba(0,0,0,0.6)); border-radius:24px;">`;
