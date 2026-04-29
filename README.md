@@ -10,7 +10,7 @@ Seamlessly extract extension packages as `.ZIP` or `.CRX` files and view the sou
 
 <p align="left">
   <!-- Firefox -->
-    <a href="https://chromewebstore.google.com/"><img src="https://github.com/ivaishnavraj/CRX-Blueprint/blob/main/GithubReadMeFiles/ChromeWebStore.png" alt="Download for Chrome" height="48" /></a>
+    <a href="https://chromewebstore.google.com/detail/crx-blueprint/ojfoaejaeknkifnmpjhjckelfbpfkgdj"><img src="https://github.com/ivaishnavraj/CRX-Blueprint/blob/main/GithubReadMeFiles/ChromeWebStore.png" alt="Download for Chrome" height="48" /></a>
    <!-- <a href="https://github.com"><img src="https://github.com/ivaishnavraj/PixterialTab/blob/main/images/github.png" alt="Download from GitHub" height="48" /></a> -->
    <!-- <a href="https://chromewebstore.google.com"><img src="https://github.com/ivaishnavraj/AcademiaRevanced/blob/main/EdgeAdd-ons.png" alt="Download for Edge" height="48" /></a> -->
 </p>
